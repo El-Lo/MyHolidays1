@@ -47,6 +47,44 @@ class VisiteRepository extends ServiceEntityRepository
         ;
     }
     */
-    
-   
+    /**
+     * Retourne toutes les visites triees par un champ
+     * Returns all visits sorted by a field
+     * @param type $champ
+     * @param type $ordre
+     * @return Visite[]
+     */
+   public function findAllOrderBy($champ, $ordre) : array
+   {
+       return $this->createQuerybuilder('v')
+               ->orderBy('v.'.$champ, $ordre)
+               ->getQuery()
+               ->getResult();
+   }
+   /**
+    * 
+    * @param type $champ
+    * @param type $valeur
+    * @return Visite[]
+    */
+   public function findByEqualValue($champ, $valeur) : array
+   {
+       if($valeur == "")
+       {
+           return $this->createQueryBuilder('v')
+                   ->orderBy('v.'.$champ, 'ASC')
+                   ->getQuery()
+                   ->getResult();
+           
+       }
+       else
+       {
+           return $this->createQueryBuilder('v')
+                   ->where('v.'.$champ. '=:valeur')
+                   ->setParameter('valeur',$valeur)
+                   ->orderBy('v.'.$champ, 'ASC')
+                   ->getQuery()
+                   ->getResult();
+       }
+   }
 }
