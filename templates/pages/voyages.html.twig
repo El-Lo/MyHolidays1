@@ -1,5 +1,34 @@
 {% extends "baseFront.html.twig" %}
 {% block body %}
-<h1>Voyages</h1>
-<a href="{{ path('home') }}">Back home </a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+        <th class="text-left" scope="col">Ville</th>
+         <th class="text-left" scope="col">Pays</th>
+          <th class="text-left" scope="col">Note</th>
+           <th class="text-left" scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for visite in visites %}
+                <tr>
+                    <td><h5 class="text-primary"><a href="#">{{ visite.Ville }}</a></h5></td>
+                    <td>{{ visite.ville }}</td>
+                    <td><strong>
+                            {% if visite.note < 10 %}
+                                <div class="text-danger">
+                                    {{ visite.note }}/20</div>
+                                    
+                            {% else %}
+                                  <div class="text-success">
+                                    {{ visite.note }}/20</div>
+                            {% endif %}
+                            </strong></td>
+                    <td>{{ visite.datecreationstring }}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+     
 {% endblock %}
