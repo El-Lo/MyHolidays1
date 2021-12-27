@@ -20,6 +20,9 @@
        </div>
     <div class="col">
         <!-- emplacement photo-->
+        {% if visite.imagename %}
+            <img src="mesvoyages/public/images/visites/{{ visite.imagename }}" class="card-img-top" style="width:100%; height:auto;">
+        {% endif %}
     </div>
 </div>
            <div class="row mt-5">

@@ -3,13 +3,22 @@
 namespace App\Entity;
 
 use App\Repository\VisiteRepository;
+use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+ 
+#use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=VisiteRepository::class)
+ * @Vich\Uploadable
  */
 class Visite
 {
@@ -54,11 +63,31 @@ class Visite
      * @ORM\Column(type="integer", nullable=true)
      */
     private $tempmax;
+/**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="visites", fileNameProperty="imageName")
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @var File|null
+     */
+    private $imageFile;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string|null
+     */
+    private $imageName;
     /**
      * @ORM\ManyToMany(targetEntity=Environnement::class)
      */
+    
     private $environnements;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updated_at;
 
     public function __construct()
     {
@@ -181,4 +210,42 @@ class Visite
 
          return $this;
      }
+     public function getImageFile(): ?File {
+         return $this->imageFile;
+     }
+
+    public  function getImageName(): ?string {
+         return $this->imageName;
+     }
+
+     function setImageFile(File $imageFile) : self {
+         $this->imageFile = $imageFile;
+         #TODO - put this back and fix the error
+       #  if($this->imageFile instanceOf UploadedFile   )
+        # {
+       #      $this->updated_at = new /DateTime('now');
+        # }
+         return $this;
+     }
+
+    public  function setImageName(?string $imageName): self {
+         $this->imageName = $imageName;
+         return $this;
+     }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+
+
+
 }

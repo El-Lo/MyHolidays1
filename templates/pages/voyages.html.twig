@@ -11,7 +11,9 @@
                 <input type="text" class="sm" name="recherche">
                 
             </div>
+              <input type="hidden" name="_taken" value="{{ csrf_token('filtre_ville') }}">
             <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
+          
         </form>
         </th>
          <th class="text-left" scope="col">Pays
