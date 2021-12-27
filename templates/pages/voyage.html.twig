@@ -12,6 +12,11 @@
                  <h2 class="text-danger mt-5">{{ visite.note }}</h2>
            {% endif %}
            <h5 class="mt-5">temp entre {{ visite.tempmin }} et {{ visite.tempmax }}</h5>
+           <p class="mt-5"><strong>Environnements</strong>
+           {% for environnement in visite.environnements %}
+           {{ environnement.nom }}, 
+           {% endfor %}
+           </p>
        </div>
     <div class="col">
         <!-- emplacement photo-->
