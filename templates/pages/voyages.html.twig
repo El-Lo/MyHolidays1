@@ -11,7 +11,7 @@
                 <input type="text" class="sm" name="recherche">
                 
             </div>
-              <input type="hidden" name="_taken" value="{{ csrf_token('filtre_ville') }}">
+              <input type="hidden" name="_token" value="{{ csrf_token('filtre_ville') }}">
             <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
           
         </form>
@@ -24,6 +24,7 @@
                 <input type="text" class="sm" name="recherche">
                 
             </div>
+            <input type="hidden" name="_token" value="{{ csrf_token('filtre_pays') }}">
             <button type="submit" class="btn btn-primary mb-2 btn-sm">filtrer</button>
         </form>
            </th>
